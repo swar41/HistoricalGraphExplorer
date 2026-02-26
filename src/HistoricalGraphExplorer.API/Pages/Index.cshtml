@@ -1,0 +1,84 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Historical Graph Copilot";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Historical Graph Explorer</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', sans-serif; background: #0f0f1a; color: #e8e8f0; min-height: 100vh; }
+        header { background: linear-gradient(135deg, #1a1a3e, #2d1b69); padding: 24px 40px; border-bottom: 1px solid #3a3a6a; }
+        header h1 { font-size: 1.8rem; color: #a78bfa; }
+        header p  { color: #94a3b8; margin-top: 4px; font-size: 0.9rem; }
+        main { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+        .card { background: #1e1e3a; border: 1px solid #3a3a6a; border-radius: 12px; padding: 28px; margin-bottom: 24px; }
+        .card h2 { font-size: 1.1rem; color: #a78bfa; margin-bottom: 16px; }
+        textarea { width: 100%; background: #0f0f1a; border: 1px solid #4a4a8a; color: #e8e8f0;
+                   padding: 12px; border-radius: 8px; font-size: 1rem; resize: vertical; }
+        textarea:focus { outline: none; border-color: #7c3aed; }
+        button { background: #7c3aed; color: white; border: none; padding: 10px 28px;
+                 border-radius: 8px; font-size: 1rem; cursor: pointer; margin-top: 12px; }
+        button:hover { background: #6d28d9; }
+        .answer { background: #0f0f1a; border-left: 4px solid #a78bfa; padding: 20px;
+                  border-radius: 0 8px 8px 0; margin-top: 20px; white-space: pre-wrap; line-height: 1.7; }
+        .examples { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+        .example-btn { background: #2d1b69; border: 1px solid #4a4a8a; color: #c4b5fd;
+                       padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; cursor: pointer; }
+        .example-btn:hover { background: #4c1d95; border-color: #7c3aed; }
+        .links { display: flex; gap: 16px; margin-top: 8px; }
+        .links a { color: #a78bfa; text-decoration: none; font-size: 0.9rem; }
+        .links a:hover { text-decoration: underline; }
+        .spinner { display: none; color: #94a3b8; margin-top: 12px; }
+    </style>
+</head>
+<body>
+<header>
+    <h1>🏛 Historical Graph Explorer</h1>
+    <p>780 historical events · Azure Cosmos DB Gremlin · Azure OpenAI</p>
+</header>
+<main>
+    <div class="card">
+        <h2>💬 AI Copilot — Ask anything about history</h2>
+        <form method="post" onsubmit="document.getElementById('spinner').style.display='block'">
+            <textarea asp-for="Question" rows="3" 
+                      placeholder="e.g. Which wars involved the Ottoman Empire?"></textarea>
+            <div class="examples">
+                <button type="button" class="example-btn" onclick="setQ('Which wars involved the Ottoman Empire?')">Ottoman Empire wars</button>
+                <button type="button" class="example-btn" onclick="setQ('What events took place in Ukraine?')">Events in Ukraine</button>
+                <button type="button" class="example-btn" onclick="setQ('List major battles between 1600 and 1700')">Battles 1600–1700</button>
+                <button type="button" class="example-btn" onclick="setQ('Who participated in the Great Turkish War?')">Great Turkish War</button>
+                <button type="button" class="example-btn" onclick="setQ('What happened in ancient Rome before 0 AD?')">Ancient Rome</button>
+            </div>
+            <br/>
+            <button type="submit">Ask →</button>
+            <p class="spinner" id="spinner">⏳ Querying graph and AI…</p>
+        </form>
+
+        @if (Model.Answer != null)
+        {
+            <div class="answer">@Model.Answer</div>
+        }
+    </div>
+
+    <div class="card">
+        <h2>🔗 API & Documentation</h2>
+        <div class="links">
+            <a href="/swagger" target="_blank">📄 Swagger UI</a>
+            <a href="/api/events?limit=10" target="_blank">📊 Browse Events (JSON)</a>
+            <a href="/api/participants/ottoman-empire/events" target="_blank">🗡 Ottoman Empire Events</a>
+            <a href="/api/places/ukraine/events" target="_blank">📍 Events in Ukraine</a>
+        </div>
+    </div>
+</main>
+<script>
+    function setQ(q) {
+        document.getElementById('Question').value = q;
+    }
+</script>
+</body>
+</html>
