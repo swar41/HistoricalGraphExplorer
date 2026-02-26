@@ -57,3 +57,46 @@ dotnet test
 | GET | `/api/participants/{slug}/events` | All events for a participant |
 | GET | `/api/places/{slug}/events` | All events at a place |
 | POST | `/api/copilot/ask` | Natural language → AI answer |
+****
+
+
+HistoricalGraphExplorer/
+│
+├── HistoricalGraphExplorer.sln
+│
+├── src/
+│   ├── HistoricalGraphExplorer.API/
+│   │   ├── Controllers/
+│   │   │   ├── EventsController.cs
+│   │   │   └── CopilotController.cs
+│   │   ├── Pages/
+│   │   │   ├── Index.cshtml
+│   │   │   ├── Index.cshtml.cs
+│   │   │   └── _ViewImports.cshtml
+│   │   ├── Middleware/
+│   │   │   └── ExceptionMiddleware.cs
+│   │   ├── Program.cs
+│   │   └── appsettings.json
+│   │
+│   ├── HistoricalGraphExplorer.Application/
+│   │   ├── Interfaces/
+│   │   │   ├── IGremlinRepository.cs
+│   │   │   ├── IGraphTraversalService.cs
+│   │   │   └── IGraphCopilotService.cs
+│   │   ├── Services/
+│   │   │   ├── GraphTraversalService.cs
+│   │   │   └── GraphCopilotService.cs
+│   │
+│   ├── HistoricalGraphExplorer.Infrastructure/
+│   │   ├── CosmosGremlinClientFactory.cs
+│   │   ├── GremlinRepository.cs
+│   │   └── SemanticKernelFactory.cs
+│   │
+│   └── HistoricalGraphExplorer.Domain/
+│       └── GraphResult.cs
+│
+├── tests/
+│   └── HistoricalGraphExplorer.Tests/
+│       └── GraphCopilotTests.cs
+│
+└── README.md
