@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.9.0" />
+    <PackageReference Include="Microsoft.SemanticKernel" Version="1.21.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HistoricalGraphExplorer.Application\HistoricalGraphExplorer.Application.csproj" />
+    <ProjectReference Include="..\HistoricalGraphExplorer.Infrastructure\HistoricalGraphExplorer.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>
